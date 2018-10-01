@@ -1,0 +1,24 @@
+{
+"employee" :  {
+ "@salary" : "12.0" 
+} ,
+"MyAnnotationProcessorImpl writes: " : "org.jsoncast.MyAnnotation" ,
+
+"last-name" : "LastName"   
+ ,
+
+"first-name" : "FirstName"   
+ ,
+
+"empl-iD" : "1"   
+ ,
+
+"empl-iD" : "3"   
+ ,
+
+"empl-iD" : "5"   
+ ,
+
+"empl-iD" : "2"   
+ 
+}
