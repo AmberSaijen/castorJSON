@@ -49,10 +49,10 @@
  */
 package org.exolab.castor.xml;
 
+import org.exolab.castor.xml.*;
 import org.jsoncast.AnnotationParserUtils;
 import org.jsoncast.ContentHandlerNature;
 import org.jsoncast.ContentHandlerPropertyHolder;
-import org.jsoncast.MyAnnotationProcessorImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -128,21 +128,21 @@ public class Marshaller extends MarshalFramework {
 
     /**
      * The CDATA type..uses for SAX attributes.
-    **/
+     **/
     private static final String CDATA = "CDATA";
 
     /**
      * Default prefix for use when creating
      * namespace prefixes.
-    **/
+     **/
     private static final String DEFAULT_PREFIX = "ns";
 
 
     /**
      * Message name for a non sax capable serializer error.
-    **/
+     **/
     private static final String SERIALIZER_NOT_SAX_CAPABLE
-        = "conf.serializerNotSaxCapable";
+            = "conf.serializerNotSaxCapable";
 
     /**
      * Namespace declaration for xml schema instance.
@@ -163,7 +163,7 @@ public class Marshaller extends MarshalFramework {
      * An instance of StringClassDescriptor.
      */
     private static final StringClassDescriptor STRING_CLASS_DESCRIPTOR
-        = new StringClassDescriptor();
+            = new StringClassDescriptor();
 
     //----------------------------/
     //- Private member variables -/
@@ -172,7 +172,7 @@ public class Marshaller extends MarshalFramework {
     /**
      * A boolean to indicate whether or not we are
      * marshalling as a complete document or not.
-    **/
+     **/
     private boolean _asDocument = true;
 
     /**
@@ -184,46 +184,46 @@ public class Marshaller extends MarshalFramework {
      * The output format to use with the serializer.
      * This will be null if the user passed in their
      * own DocumentHandler.
-    **/
+     **/
     private OutputFormat _format = null;
 
     /**
      * The ContentHandler we are marshalling to.
-    **/
+     **/
     private ContentHandler  _handler      = null;
 
     /**
      * flag to indicate whether or not to use xsi:type.
-    **/
+     **/
     private boolean _marshalExtendedType = true;
 
     /**
      * The registered MarshalListener to receive
      * notifications of pre and post marshal for
      * each object in the tree being marshalled.
-    **/
+     **/
     private MarshalListener _marshalListener = null;
 
     /**
      * The namespace stack.
-    **/
+     **/
     private Namespaces _namespaces = new Namespaces();
 
     /**
      * Records Java packages being used during marshalling.
-    **/
+     **/
     private List _packages = new ArrayList();
 
     /**
      * A stack of parent objects...to prevent circular
      * references from being marshalled.
-    **/
+     **/
     private Stack _parents  = new SafeStack();
 
     /**
      * A list of ProcessingInstructions to output
      * upon marshalling of the document.
-    **/
+     **/
     private List _processingInstructions = new ArrayList();
 
     /**
@@ -240,7 +240,7 @@ public class Marshaller extends MarshalFramework {
     /**
      * The serializer that is being used for marshalling.
      * This may be null if the user passed in a DocumentHandler.
-    **/
+     **/
     private Serializer       _serializer   = null;
 
     /**
@@ -258,7 +258,7 @@ public class Marshaller extends MarshalFramework {
     /**
      * The set of optional top-level attributes
      * set by the user.
-    **/
+     **/
     private AttributeSetImpl _topLevelAtts = new AttributeSetImpl();
 
     /**
@@ -285,20 +285,20 @@ public class Marshaller extends MarshalFramework {
      * Creates a new {@link Marshaller} with the given SAX {@link DocumentHandler}.
      *
      * @param handler the SAX {@link DocumentHandler} to "marshal" to.
-     * 
+     *
      * @deprecate Please use {@link XMLContext#createMarshaller()} and 
      *    {@link Marshaller#setDocumentHandler(DocumentHandler)} instead
-     * 
+     *
      * @see {@link XMLContext#createMarshaller()}
      * @see {@link Marshaller#setDocumentHandler(DocumentHandler)}
      * @see XMLContext
-     * 
-    **/
+     *
+     **/
     public Marshaller(final DocumentHandler handler) {
         super(null);
         if (handler == null) {
-            throw new IllegalArgumentException("The given 'org.sax.DocumentHandler' " 
-                    + "instance is null.");
+            throw new IllegalArgumentException("The given 'org.sax.DocumentHandler' "
+                                                       + "instance is null.");
         }
 
         setContentHandler(new DocumentHandlerAdapter(handler));
@@ -308,11 +308,11 @@ public class Marshaller extends MarshalFramework {
      * Sets the given SAX {@link DocumentHandler} to 'marshal' into.
      *
      * @param handler the SAX {@link DocumentHandler} to "marshal" to.
-    **/
+     **/
     public void setDocumentHandler(final DocumentHandler handler) {
         if (handler == null) {
-            throw new IllegalArgumentException("The given 'org.sax.DocumentHandler' " 
-                    + "instance is null.");
+            throw new IllegalArgumentException("The given 'org.sax.DocumentHandler' "
+                                                       + "instance is null.");
         }
 
         setContentHandler(new DocumentHandlerAdapter(handler));
@@ -322,15 +322,15 @@ public class Marshaller extends MarshalFramework {
      * Creates a new {@link Marshaller} with the given SAX {@link ContentHandler}.
      *
      * @param contentHandler the {@link ContentHandler} to "marshal" to.
-     * 
+     *
      * @deprecate Please use {@link XMLContext#createMarshaller()} and 
      *    {@link Marshaller#setContentHandler(ContentHandler)} instead
-     * 
+     *
      * @see {@link XMLContext#createMarshaller()}
      * @see {@link Marshaller#setContentHandler(ContentHandler)}
      * @see XMLContext
-     * 
-    **/
+     *
+     **/
     public Marshaller(final ContentHandler contentHandler) {
         super(null);
         if (contentHandler == null) {
@@ -339,7 +339,7 @@ public class Marshaller extends MarshalFramework {
 
         setContentHandler(contentHandler);
     }
-    
+
     /**
      * The one {@link Marshaller} constructor that is used by {@link XMLContext} which
      * sets an {@link InternalContext} that comes from outside. Writer or {@link ContentHandler}
@@ -365,12 +365,12 @@ public class Marshaller extends MarshalFramework {
      * @throws IOException If the given {@link Writer} instance cannot be opened.
      * @deprecate Please use {@link XMLContext#createMarshaller()} and 
      *    {@link Marshaller#setWriter(Writer)} instead
-     * 
+     *
      * @see {@link XMLContext#createMarshaller()}
      * @see {@link Marshaller#setWriter(Writer)}
      * @see XMLContext
-     * 
-    **/
+     *
+     **/
     public Marshaller(final Writer out) throws IOException {
         super(null);
         setWriter(out);
@@ -378,7 +378,7 @@ public class Marshaller extends MarshalFramework {
 
     /**
      * Sets the java.io.Writer to be used during marshalling.
-     * 
+     *
      * @param out
      *            The writer to use for marshalling
      * @throws IOException
@@ -417,16 +417,16 @@ public class Marshaller extends MarshalFramework {
      * Creates a new {@link Marshaller} for the given DOM {@link Node}.
      *
      * @param node the DOM {@link Node} to marshal into.
-     * 
+     *
      * @deprecate Please use {@link XMLContext#createMarshaller()} and 
      *    {@link Marshaller#setNode(Node)} instead
-     * 
+     *
      * @see {@link XMLContext#createMarshaller()}
      * @see {@link Marshaller#setNode(Node)}
      * @see XMLContext
-     * 
-     * 
-    **/
+     *
+     *
+     **/
     public Marshaller(final Node node) {
         super(null);
         if (node == null) {
@@ -434,35 +434,35 @@ public class Marshaller extends MarshalFramework {
         }
         setContentHandler(new DocumentHandlerAdapter(new SAX2DOMHandler(node)));
     }
-    
+
     /**
      * Sets the W3C {@link Node} instance to marshal to.
      *
      * @param node the DOM {@link Node} to marshal into.
-    **/
+     **/
     public void setNode(final Node node) {
         if (node == null) {
             throw new IllegalArgumentException("The given org.w3c.dom.Node instance is null.");
         }
         setContentHandler(new DocumentHandlerAdapter(new SAX2DOMHandler(node)));
     }
-    
-  /**
-   * To set the {@link InternalContext} to use, and to 
-   * initialize {@link Marshaller} properties linked to it.
-   * @param internalContext the {@link InternalContext} to use
-   */
-  public void setInternalContext(final InternalContext internalContext) {
-      super.setInternalContext(internalContext);
-      deriveProperties();
-  }
+
+    /**
+     * To set the {@link InternalContext} to use, and to 
+     * initialize {@link Marshaller} properties linked to it.
+     * @param internalContext the {@link InternalContext} to use
+     */
+    public void setInternalContext(final InternalContext internalContext) {
+        super.setInternalContext(internalContext);
+        deriveProperties();
+    }
 
 
-  /**
+    /**
      * Derive class-level properties from {@link XMLProperties} as defined
      * {@link InternalContext}. This method will be called after a new
      * {@link InternalContext} or a property has been set.
-     * 
+     *
      * @link #setInternalContext(InternalContext)
      */
     private void deriveProperties() {
@@ -479,14 +479,14 @@ public class Marshaller extends MarshalFramework {
             }
         }
     }
-    
-   /**
+
+    /**
      * Adds the given processing instruction data to the set of
      * processing instructions to output during marshalling.
      *
      * @param target the processing instruction target
      * @param data the processing instruction data
-    **/
+     **/
     public void addProcessingInstruction(String target, String data) {
 
         if ((target == null) || (target.length() == 0)) {
@@ -501,13 +501,13 @@ public class Marshaller extends MarshalFramework {
         _processingInstructions.add(new ProcessingInstruction(target, data));
     } //-- addProcessingInstruction
 
-   /**
-    * Sets the document type definition for the serializer. Note that this method
-    * cannot be called if you've passed in your own DocumentHandler.
-    *
-    * @param publicId the public identifier
-    * @param systemId the system identifier
-    */
+    /**
+     * Sets the document type definition for the serializer. Note that this method
+     * cannot be called if you've passed in your own DocumentHandler.
+     *
+     * @param publicId the public identifier
+     * @param systemId the system identifier
+     */
     public void setDoctype(String publicId, String systemId) {
 
         if (_serializer != null) {
@@ -536,7 +536,7 @@ public class Marshaller extends MarshalFramework {
         }
         else {
             String error = "doctype cannot be set if you've passed in "+
-            "your own DocumentHandler";
+                    "your own DocumentHandler";
             throw new IllegalStateException(error);
         }
     } //-- setDoctype
@@ -625,7 +625,7 @@ public class Marshaller extends MarshalFramework {
 //            _cdResolver = (XMLClassDescriptorResolver) ClassDescriptorResolverFactory
 //                .createClassDescriptorResolver(BindingType.XML);
 //        }
-        if ((getInternalContext() == null) 
+        if ((getInternalContext() == null)
                 || (getInternalContext().getXMLClassDescriptorResolver() == null)) {
             String message = "No internal context or no class descriptor in context.";
             LOG.warn(message);
@@ -650,17 +650,17 @@ public class Marshaller extends MarshalFramework {
      * listeners.
      *
      * @param listener the MarshalListener to set.
-    **/
+     **/
     public void setMarshalListener(MarshalListener listener) {
         _marshalListener = listener;
     } //-- setMarshalListener
 
     /**
      * Sets the mapping for the given Namespace prefix.
-     * 
+     *
      * @param nsPrefix the namespace prefix
      * @param nsURI the namespace that the prefix resolves to
-    **/
+     **/
     public void setNamespaceMapping(final String nsPrefix, final String nsURI) {
 
         if ((nsURI == null) || (nsURI.length() == 0)) {
@@ -723,7 +723,7 @@ public class Marshaller extends MarshalFramework {
 //            _cdResolver = (XMLClassDescriptorResolver)
 //            ClassDescriptorResolverFactory.createClassDescriptorResolver(BindingType.XML);
 //        }
-        if ((getInternalContext() == null) 
+        if ((getInternalContext() == null)
                 || (getInternalContext().getXMLClassDescriptorResolver() == null)) {
             String message = "No internal context or no class descriptor in context.";
             LOG.warn(message);
@@ -765,11 +765,11 @@ public class Marshaller extends MarshalFramework {
      *
      * @param validate the boolean indicating whether or not to
      * validate the object model before marshalling.
-    **/
+     **/
     public void setValidation(boolean validate) {
         _validate = validate;
     } //-- setValidation
-    
+
     public boolean getValidation() {
         return _validate;
     }
@@ -807,7 +807,7 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.ValidationException
      */
     public static void marshal(Object object, Writer out)
-    throws MarshalException, ValidationException {
+            throws MarshalException, ValidationException {
         try {
             staticMarshal(object, new Marshaller(out));
         } catch (IOException e) {
@@ -825,7 +825,7 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.ValidationException
      */
     public static void marshal(Object object, DocumentHandler handler)
-    throws MarshalException, ValidationException {
+            throws MarshalException, ValidationException {
         staticMarshal(object, new Marshaller(handler));
     } //-- marshal
 
@@ -839,7 +839,7 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.ValidationException
      */
     public static void marshal(Object object, ContentHandler handler)
-    throws MarshalException, ValidationException, IOException {
+            throws MarshalException, ValidationException, IOException {
         staticMarshal(object, new Marshaller(handler));
     } //-- marshal
 
@@ -853,7 +853,7 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.ValidationException
      */
     public static void marshal(Object object, Node node)
-    throws MarshalException, ValidationException {
+            throws MarshalException, ValidationException {
         staticMarshal(object, new Marshaller(node));
     } //-- marshal
 
@@ -867,17 +867,17 @@ public class Marshaller extends MarshalFramework {
      * @throws ValidationException as thrown by marshal(Object)
      */
     private static void staticMarshal(final Object object, final Marshaller marshaller)
-    throws MarshalException, ValidationException {
+            throws MarshalException, ValidationException {
         if (object == null) {
             throw new MarshalException("object must not be null");
         }
 
         if (LOG.isInfoEnabled()) {
-            LOG.info("Marshaller called using one of the *static* " + 
-                    " marshal(Object, *) methods. This will ignore any " +
-                    " mapping files as specified. Please consider switching to " +
-                    " using Marshaller instances and calling one of the" +
-                    " marshal(*) methods.");
+            LOG.info("Marshaller called using one of the *static* " +
+                             " marshal(Object, *) methods. This will ignore any " +
+                             " mapping files as specified. Please consider switching to " +
+                             " using Marshaller instances and calling one of the" +
+                             " marshal(*) methods.");
         }
 
         marshaller.marshal(object);
@@ -892,7 +892,7 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.ValidationException
      */
     public void marshal(Object object)
-    throws MarshalException, ValidationException {
+            throws MarshalException, ValidationException {
         if (object == null)
             throw new MarshalException("object must not be null");
 
@@ -901,34 +901,34 @@ public class Marshaller extends MarshalFramework {
         }
 
         if (object instanceof AnyNode) {
-           try{
-              AnyNode2SAX2.fireEvents((AnyNode)object, _handler, _namespaces);
-           } catch(SAXException e) {
+            try{
+                AnyNode2SAX2.fireEvents((AnyNode)object, _handler, _namespaces);
+            } catch(SAXException e) {
                 throw new MarshalException(e);
-           }
+            }
         }
         else {
-             validate(object);
-             MarshalState mstate = new MarshalState(object, "root");
-             if (_asDocument) {
+            validate(object);
+            MarshalState mstate = new MarshalState(object, "root");
+            if (_asDocument) {
                 try {
                     _handler.startDocument();
                     //-- handle processing instructions
                     for (int i = 0; i < _processingInstructions.size(); i++) {
                         ProcessingInstruction pi = (ProcessingInstruction)
-                            _processingInstructions.get(i);
+                                _processingInstructions.get(i);
                         _handler.processingInstruction(pi.getTarget(),
-                            pi.getData());
+                                                       pi.getData());
                     }
                     marshal(object, null, _handler, mstate);
                     _handler.endDocument();
                 } catch (SAXException sx) {
                     throw new MarshalException(sx);
                 }
-             }
-             else {
+            }
+            else {
                 marshal(object, null, _handler, mstate);
-             }
+            }
         }
 
     } //-- marshal
@@ -948,13 +948,13 @@ public class Marshaller extends MarshalFramework {
      * @exception org.exolab.castor.xml.MarshalException
      * @exception org.exolab.castor.xml.ValidationException
      * during marshaling
-    **/
+     **/
     private void marshal
-        (Object object,
-         XMLFieldDescriptor descriptor,
-         ContentHandler handler,
-         final MarshalState mstate)
-        throws MarshalException, ValidationException
+    (Object object,
+     XMLFieldDescriptor descriptor,
+     ContentHandler handler,
+     final MarshalState mstate)
+            throws MarshalException, ValidationException
     {
 
 
@@ -974,12 +974,12 @@ public class Marshaller extends MarshalFramework {
 
         //-- handle AnyNode
         if (object instanceof AnyNode) {
-           try {
-               AnyNode2SAX2.fireEvents((AnyNode) object, handler, _namespaces);
-           }catch (SAXException e) {
-               throw new MarshalException(e);
-           }
-           return;
+            try {
+                AnyNode2SAX2.fireEvents((AnyNode) object, handler, _namespaces);
+            }catch (SAXException e) {
+                throw new MarshalException(e);
+            }
+            return;
         }
 
         boolean containerField = false;
@@ -997,33 +997,32 @@ public class Marshaller extends MarshalFramework {
 
         Class cls = null;
         // LB-2
-        MyAnnotationProcessorImpl myAnnotationProcessor = new MyAnnotationProcessorImpl();
         BaseAnnotationProcessingService baseService = new BaseAnnotationProcessingService();
         AnnotationProcessor annotationProcessor = getInternalContext().getAnnotationProcessor();
-        baseService.addAnnotationProcessor(myAnnotationProcessor);
+        baseService.addAnnotationProcessor(annotationProcessor);
         final ContentHandlerPropertyHolder contentPropertyHolder = new ContentHandlerPropertyHolder();
         final ContentHandlerNature contentHandlerNature = new ContentHandlerNature(contentPropertyHolder, handler);
-        
+
         if (!isNil) {
             cls = object.getClass();
-            
+
             for (Field field : cls.getDeclaredFields()) {
                 for (Annotation annotation : field.getAnnotations()){
-                    annotationMap.put(field.getName(), annotation); 
+                    annotationMap.put(field.getName(), annotation);
                 }
             }
             annotationsList = new ArrayList();
-        // end LB-2
-            
-            
+            // end LB-2
+
+
             if (_proxyInterfaces.size() > 0) {
                 boolean isProxy = false;
-                
+
                 Class[] interfaces = cls.getInterfaces();
                 for (int i = 0; i < interfaces.length; i++) {
                     if (_proxyInterfaces.contains(interfaces[i].getName())) { isProxy = true; }
                 }
-                
+
                 if (isProxy) { cls = cls.getSuperclass(); }
             }
         } else {
@@ -1202,11 +1201,11 @@ public class Marshaller extends MarshalFramework {
             if (classDesc == null) {
                 //-- make sure we are allowed to marshal Object
                 if ((cls == Void.class) ||
-                    (cls == Object.class) ||
-                    (cls == Class.class)) {
+                        (cls == Object.class) ||
+                        (cls == Class.class)) {
 
                     throw new MarshalException
-                        (MarshalException.BASE_CLASS_OR_VOID_ERR);
+                            (MarshalException.BASE_CLASS_OR_VOID_ERR);
                 }
                 _parents.pop();
                 return;
@@ -1248,65 +1247,65 @@ public class Marshaller extends MarshalFramework {
         //-- Suppress 'xsi:type' attributes when Castor is able to infer
         //-- the correct type during unmarshalling
         if (saveType) {
-             // When the type of the instance of the field is not the
-             // type specified for the field, it might be necessary to
-             // store the type explicitly (using xsi:type) to avoid
-             // confusion during unmarshalling.
-             //
-             // However, it might be possible to use the XMLName of the
-             // instance rather than the XMLName of the field. If
-             // Castor could find back the type from the name of the
-             // element, there is no need to add an xsi:type.
-             //
-             // In order to do that, there is two conditions:
-             // 1. Castor should be able to find the right class to
-             // instantiate form the XMLName of the instance.
-             // 2. Castor should be sure than when using the XMLName of
-             // the instance, there is only one field wich will match
-             // that name (and that it is the current field)
+            // When the type of the instance of the field is not the
+            // type specified for the field, it might be necessary to
+            // store the type explicitly (using xsi:type) to avoid
+            // confusion during unmarshalling.
+            //
+            // However, it might be possible to use the XMLName of the
+            // instance rather than the XMLName of the field. If
+            // Castor could find back the type from the name of the
+            // element, there is no need to add an xsi:type.
+            //
+            // In order to do that, there is two conditions:
+            // 1. Castor should be able to find the right class to
+            // instantiate form the XMLName of the instance.
+            // 2. Castor should be sure than when using the XMLName of
+            // the instance, there is only one field wich will match
+            // that name (and that it is the current field)
 
-             // XML Name associated with the class we are marshalling
-             String xmlElementName = name;
-             String xmlNamespace = descriptor.getNameSpaceURI();
+            // XML Name associated with the class we are marshalling
+            String xmlElementName = name;
+            String xmlNamespace = descriptor.getNameSpaceURI();
 
-             // We try to find if there is a XMLClassDescriptor associated
-             // with the XML name of this class
-             XMLClassDescriptor xmlElementNameClassDesc = null;
-             try {
-                 xmlElementNameClassDesc = getResolver().resolveByXMLName(xmlElementName, null, null);
-             }
-             catch(ResolverException rx) {
-                 //-- exception not important as we're simply
-                 //-- testing to see if we can resolve during
-                 //-- unmarshalling
-                 if (LOG.isDebugEnabled()) {
+            // We try to find if there is a XMLClassDescriptor associated
+            // with the XML name of this class
+            XMLClassDescriptor xmlElementNameClassDesc = null;
+            try {
+                xmlElementNameClassDesc = getResolver().resolveByXMLName(xmlElementName, null, null);
+            }
+            catch(ResolverException rx) {
+                //-- exception not important as we're simply
+                //-- testing to see if we can resolve during
+                //-- unmarshalling
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("Error resolving " + xmlElementName, rx);
                 }
-             }
+            }
 
-             // Test if we are not dealing with a source generated vector
-             if ((xmlElementName != null) && (xmlElementNameClassDesc != null)) {
-                 // More than one class can map to a given element name
-                 try {
-                     Iterator classDescriptorIter = getResolver().resolveAllByXMLName(xmlElementName, null, null);
-                     for (; classDescriptorIter.hasNext();) {
-                         xmlElementNameClassDesc = (XMLClassDescriptor) classDescriptorIter.next();
-                         if (cls == xmlElementNameClassDesc.getJavaClass())
-                             break;
-                          //reset the classDescriptor --> none has been found
-                          xmlElementNameClassDesc = null;
-                     }
-                 }
-                 catch(ResolverException rx) {
-                     if (LOG.isDebugEnabled()) {
-                         LOG.debug("Error resolving " + xmlElementName, rx);
-                     }
-                     xmlElementNameClassDesc = null;
-                 }
+            // Test if we are not dealing with a source generated vector
+            if ((xmlElementName != null) && (xmlElementNameClassDesc != null)) {
+                // More than one class can map to a given element name
+                try {
+                    Iterator classDescriptorIter = getResolver().resolveAllByXMLName(xmlElementName, null, null);
+                    for (; classDescriptorIter.hasNext();) {
+                        xmlElementNameClassDesc = (XMLClassDescriptor) classDescriptorIter.next();
+                        if (cls == xmlElementNameClassDesc.getJavaClass())
+                            break;
+                        //reset the classDescriptor --> none has been found
+                        xmlElementNameClassDesc = null;
+                    }
+                }
+                catch(ResolverException rx) {
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Error resolving " + xmlElementName, rx);
+                    }
+                    xmlElementNameClassDesc = null;
+                }
 
-                 //make sure we only run into this logic if the classDescriptor
-                 //is coming from a mapping file.
-                 if  (xmlElementNameClassDesc instanceof XMLClassDescriptorAdapter) {
+                //make sure we only run into this logic if the classDescriptor
+                //is coming from a mapping file.
+                if  (xmlElementNameClassDesc instanceof XMLClassDescriptorAdapter) {
 
                     // Try to find a field descriptor directly in the parent object
                     XMLClassDescriptor tempContaining = (XMLClassDescriptor)descriptor.getContainingClassDescriptor();
@@ -1316,19 +1315,19 @@ public class Marshaller extends MarshalFramework {
                     //--so no need to enter the logic
                     if (tempContaining != null) {
                         XMLFieldDescriptor fieldDescMatch =
-                            tempContaining.getFieldDescriptor(xmlElementName, xmlNamespace, NodeType.Element);
+                                tempContaining.getFieldDescriptor(xmlElementName, xmlNamespace, NodeType.Element);
 
                         // Try to find a field descriptor by inheritance in the parent object
                         InheritanceMatch[] matches =
-                              searchInheritance(xmlElementName, null, tempContaining); // TODO: Joachim, _cdResolver);
+                                searchInheritance(xmlElementName, null, tempContaining); // TODO: Joachim, _cdResolver);
 
                         if (matches.length == 1) {
 
                             boolean foundTheRightClass = ((xmlElementNameClassDesc != null) && (cls == xmlElementNameClassDesc.getJavaClass()));
 
                             boolean oneAndOnlyOneMatchedField
-                              = ((fieldDescMatch != null) ||
-                                  (matches[0].parentFieldDesc == descriptor));
+                                    = ((fieldDescMatch != null) ||
+                                    (matches[0].parentFieldDesc == descriptor));
 
                             // Can we remove the xsi:type ?
                             if (foundTheRightClass && oneAndOnlyOneMatchedField) {
@@ -1337,9 +1336,9 @@ public class Marshaller extends MarshalFramework {
                             }
                         }//lengh is one
                     }
-                 }//the classDesc comes from a mapping file
-             }
-         }//--- End of "if (saveType)"
+                }//the classDesc comes from a mapping file
+            }
+        }//--- End of "if (saveType)"
 
 
         //------------------------/
@@ -1426,7 +1425,7 @@ public class Marshaller extends MarshalFramework {
                     if (ns == null) ns = "";
                 }
                 atts.addAttribute(ns, localName, qName, CDATA,
-                    _topLevelAtts.getValue(i));
+                                  _topLevelAtts.getValue(i));
             }
         }
 
@@ -1564,14 +1563,14 @@ public class Marshaller extends MarshalFramework {
             atts.addAttribute(XSI_NAMESPACE, NIL_ATTR, XSI_NIL_ATTR, CDATA, TRUE_VALUE);
         }
 
-       //check if the value is a QName that needs to
-       //be resolved ({URI}value -> ns:value)
-       //This should be done BEFORE declaring the namespaces as attributes
-       //because we can declare new namespace during the QName resolution
-       String valueType = descriptor.getSchemaType();
-       if ((valueType != null) && (valueType.equals(QNAME_NAME))) {
-           object = resolveQName(object, descriptor);
-       }
+        //check if the value is a QName that needs to
+        //be resolved ({URI}value -> ns:value)
+        //This should be done BEFORE declaring the namespaces as attributes
+        //because we can declare new namespace during the QName resolution
+        String valueType = descriptor.getSchemaType();
+        if ((valueType != null) && (valueType.equals(QNAME_NAME))) {
+            object = resolveQName(object, descriptor);
+        }
 
 
         String qName = null;
@@ -1650,21 +1649,21 @@ public class Marshaller extends MarshalFramework {
                     //-- hopefully this never happens, but if it does, it means
                     //-- we have a bug in our naming logic
                     String err = "Error in deriving name for type: " +
-                        cls.getName() + ", please report bug to: " +
-                        "http://castor.exolab.org.";
+                            cls.getName() + ", please report bug to: " +
+                            "http://castor.exolab.org.";
                     throw new IllegalStateException(err);
                 }
                 // LB-2
                 for (String fieldName : annotationMap.keySet()) {
                     if (fieldName.equalsIgnoreCase(name.replaceAll("-|@", ""))){
                         annotationsList.add(annotationMap.get(fieldName));
-                    	//String annotationToProcess = annotationMap.get(fieldName);
+                        //String annotationToProcess = annotationMap.get(fieldName);
                         //handler.processingInstruction(name, annotationToProcess);
                     }
                 }
                 if (annotationsList.size() > 0) {
-                	annotations = (Annotation [])annotationsList.toArray((Object [])new Annotation [annotationsList.size()]);
-                	baseService.processAnnotations(contentHandlerNature, annotations);
+                    annotations = (Annotation [])annotationsList.toArray((Object [])new Annotation [annotationsList.size()]);
+                    baseService.processAnnotations(contentHandlerNature, annotations);
                 }
                 // LB-2 end
                 handler.startElement(nsURI, name, qName, atts);
@@ -1810,7 +1809,7 @@ public class Marshaller extends MarshalFramework {
                 String schemaType = descriptor.getSchemaType();
                 String componentType = descriptor.getComponentType();
                 char[] chars = new char[0];
-                if ((descriptor.isMultivalued() && HexDecoder.DATA_TYPE.equals(componentType)) || 
+                if ((descriptor.isMultivalued() && HexDecoder.DATA_TYPE.equals(componentType)) ||
                         HexDecoder.DATA_TYPE.equals(schemaType)) {
                     chars = new String(HexDecoder.encode((byte[]) object)).toCharArray();
                 } else {
@@ -1824,7 +1823,7 @@ public class Marshaller extends MarshalFramework {
             }
             /* special case for Strings and primitives */
             else if (isPrimitive(cls)) {
-                
+
                 char[] chars;
                 if (cls == java.math.BigDecimal.class) {
                     chars = convertBigDecimalToString(object).toCharArray();
@@ -1846,7 +1845,7 @@ public class Marshaller extends MarshalFramework {
                 catch(SAXException sx) {
                     throw new MarshalException(sx);
                 }
-                
+
             }
         }
 
@@ -1882,10 +1881,10 @@ public class Marshaller extends MarshalFramework {
                     continue;
                 }
             }
-            
-            if (obj == null 
+
+            if (obj == null
                     || (obj instanceof Enumeration && !((Enumeration) obj).hasMoreElements())) {
-                             if (elemDescriptor.isNillable() && (elemDescriptor.isRequired())) {
+                if (elemDescriptor.isNillable() && (elemDescriptor.isRequired())) {
                     nil = true;
                 } else {
                     continue;
@@ -2083,11 +2082,11 @@ public class Marshaller extends MarshalFramework {
 
         if (wrappers != null && !wrappers.isEmpty()) {
             dealWithNestedAttributesNested(object, handler, nsPrefix, nsURI,
-                    nestedAttCount, nestedAtts, wrappers);
+                                           nestedAttCount, nestedAtts, wrappers);
         }
 
         dealWithNestedAttributes(object, handler, nsPrefix, nsURI,
-                nestedAttCount, nestedAtts, new SafeStack());
+                                 nestedAttCount, nestedAtts, new SafeStack());
 
         //-- finish element
         try {
@@ -2112,8 +2111,8 @@ public class Marshaller extends MarshalFramework {
     } //-- void marshal(DocumentHandler)
 
     private void dealWithNestedAttributes(Object object,
-            ContentHandler handler, String nsPrefix, String nsURI,
-            int nestedAttCount, XMLFieldDescriptor[] nestedAtts, Stack wrappers)
+                                          ContentHandler handler, String nsPrefix, String nsURI,
+                                          int nestedAttCount, XMLFieldDescriptor[] nestedAtts, Stack wrappers)
             throws MarshalException {
         //-- Handle any additional attribute locations that were
         //-- not handled when dealing with wrapper elements
@@ -2122,8 +2121,8 @@ public class Marshaller extends MarshalFramework {
                 if (nestedAtts[i] == null) continue;
                 String path = nestedAtts[i].getLocationPath();
                 String currentLoc = null;
-                
-                
+
+
                 //-- Make sure attribute has value before continuing
                 //-- We really could use a FieldHandler#hasValue()
                 //-- method (since sometimes getValue() methods may
@@ -2189,28 +2188,28 @@ public class Marshaller extends MarshalFramework {
     }
 
     private void dealWithNestedAttributesNested(Object object,
-            ContentHandler handler, String nsPrefix, String nsURI,
-            int nestedAttCount, XMLFieldDescriptor[] nestedAtts, Stack wrappers)
+                                                ContentHandler handler, String nsPrefix, String nsURI,
+                                                int nestedAttCount, XMLFieldDescriptor[] nestedAtts, Stack wrappers)
             throws MarshalException {
         //-- Handle any additional attribute locations that were
         //-- not handled when dealing with wrapper elements
-        
+
         WrapperInfo wrapperInfo = (WrapperInfo) wrappers.peek();
         String currentLocation = wrapperInfo._location;
-        
+
         if (nestedAttCount > 0) {
             for (int i = 0; i < nestedAtts.length; i++) {
                 if (nestedAtts[i] == null) continue;
                 String nestedAttributePath = nestedAtts[i].getLocationPath();
-                
+
                 if (!nestedAttributePath.startsWith(currentLocation + "/")) {
                     continue;
                 }
-                
+
                 nestedAttributePath = nestedAttributePath.substring(wrapperInfo._location.length() + 1);
                 String currentLoc = currentLocation;
-                
-                
+
+
                 //-- Make sure attribute has value before continuing
                 //-- We really could use a FieldHandler#hasValue()
                 //-- method (since sometimes getValue() methods may
@@ -2310,9 +2309,9 @@ public class Marshaller extends MarshalFramework {
      *
      * @param object the Object to retrieve the ID for
      * @return the ID for the given Object
-    **/
+     **/
     private Object getObjectID(Object object)
-        throws MarshalException
+            throws MarshalException
     {
         if (object == null) return null;
 
@@ -2321,7 +2320,7 @@ public class Marshaller extends MarshalFramework {
         String err = null;
         if (cd != null) {
             XMLFieldDescriptor fieldDesc
-                = (XMLFieldDescriptor) cd.getIdentity();
+                    = (XMLFieldDescriptor) cd.getIdentity();
             if (fieldDesc != null) {
                 FieldHandler fieldHandler = fieldDesc.getHandler();
                 if (fieldHandler != null) {
@@ -2358,7 +2357,7 @@ public class Marshaller extends MarshalFramework {
      * @param nsURI the namespace URI to declare
      * @return true if the namespace was not in scope and was
      *  sucessfully declared, other false
-    **/
+     **/
     private boolean declareNamespace(String nsPrefix, String nsURI)
     {
         boolean declared = false;
@@ -2382,7 +2381,7 @@ public class Marshaller extends MarshalFramework {
     /**
      * Sets the PrintWriter used for logging
      * @param printWriter the PrintWriter to use for logging
-    **/
+     **/
     public void setLogWriter(final PrintWriter printWriter) { }
 
     /**
@@ -2390,7 +2389,7 @@ public class Marshaller extends MarshalFramework {
      * cannot be called if you've passed in your own DocumentHandler.
      *
      * @param encoding the encoding to set
-    **/
+     **/
     public void setEncoding(String encoding) {
 
         if (_serializer != null) {
@@ -2419,7 +2418,7 @@ public class Marshaller extends MarshalFramework {
         }
         else {
             String error = "encoding cannot be set if you've passed in "+
-            "your own DocumentHandler";
+                    "your own DocumentHandler";
             throw new IllegalStateException(error);
         }
     } //-- setEncoding
@@ -2431,7 +2430,7 @@ public class Marshaller extends MarshalFramework {
      *
      * @param schemaLocation the URI location of the schema
      * to which the marshalled document is an instance of.
-    **/
+     **/
     public void setNoNamespaceSchemaLocation(String schemaLocation) {
         if (schemaLocation == null) {
             //-- remove if necessary
@@ -2439,7 +2438,7 @@ public class Marshaller extends MarshalFramework {
         }
         else {
             _topLevelAtts.setAttribute(XSI_NO_NAMESPACE_SCHEMA_LOCATION,
-                schemaLocation, XSI_NAMESPACE);
+                                       schemaLocation, XSI_NAMESPACE);
         }
     } //-- setNoNamespaceSchemaLocation
 
@@ -2450,7 +2449,7 @@ public class Marshaller extends MarshalFramework {
      *
      * @param schemaLocation the URI location of the schema
      * to which the marshalled document is an instance of.
-    **/
+     **/
     public void setSchemaLocation(String schemaLocation) {
         if (schemaLocation == null) {
             //-- remove if necessary
@@ -2458,7 +2457,7 @@ public class Marshaller extends MarshalFramework {
         }
         else {
             _topLevelAtts.setAttribute(XSI_SCHEMA_LOCATION,
-                schemaLocation, XSI_NAMESPACE);
+                                       schemaLocation, XSI_NAMESPACE);
         }
     } //-- setSchemaLocation
 
@@ -2483,23 +2482,23 @@ public class Marshaller extends MarshalFramework {
      * @param suppressXSIType a boolean that when true will prevent
      * xsi:type attribute from being used in the marshalling process.
      */
-     public void setSuppressXSIType(boolean suppressXSIType) {
+    public void setSuppressXSIType(boolean suppressXSIType) {
         _suppressXSIType = suppressXSIType;
-     } //-- setSuppressXSIType
+    } //-- setSuppressXSIType
 
-     /**
-      * Sets whether or not to output the xsi:type at the root
-      * element. This is usually needed when the root element
-      * type cannot be determined by the element name alone.
-      * By default xsi:type will not be output on the root
-      * element.
-      *
-      * @param useXSITypeAtRoot a boolean that when true indicates
-      * that the xsi:type should be output on the root element.
-      */
-     public void setUseXSITypeAtRoot(boolean useXSITypeAtRoot) {
-         _useXSITypeAtRoot = useXSITypeAtRoot;
-     } //-- setUseXSITypeAtRoot
+    /**
+     * Sets whether or not to output the xsi:type at the root
+     * element. This is usually needed when the root element
+     * type cannot be determined by the element name alone.
+     * By default xsi:type will not be output on the root
+     * element.
+     *
+     * @param useXSITypeAtRoot a boolean that when true indicates
+     * that the xsi:type should be output on the root element.
+     */
+    public void setUseXSITypeAtRoot(boolean useXSITypeAtRoot) {
+        _useXSITypeAtRoot = useXSITypeAtRoot;
+    } //-- setUseXSITypeAtRoot
 
     /**
      * Finds and returns an XMLClassDescriptor for the given class. If
@@ -2508,9 +2507,9 @@ public class Marshaller extends MarshalFramework {
      * @param cls the Class to get the XMLClassDescriptor for
      * @exception MarshalException when there is a problem
      * retrieving or creating the XMLClassDescriptor for the given class
-    **/
+     **/
     private XMLClassDescriptor getClassDescriptor(final Class cls)
-    throws MarshalException {
+            throws MarshalException {
         XMLClassDescriptor classDesc = null;
 
         try {
@@ -2541,8 +2540,8 @@ public class Marshaller extends MarshalFramework {
      * @param atts the SAX attribute list to add the attribute to
      */
     private void processAttribute
-        (Object object, XMLFieldDescriptor attDescriptor, AttributesImpl atts)
-        throws MarshalException
+    (Object object, XMLFieldDescriptor attDescriptor, AttributesImpl atts)
+            throws MarshalException
     {
         if (attDescriptor == null) return;
 
@@ -2645,15 +2644,15 @@ public class Marshaller extends MarshalFramework {
             //be resolved ({URI}value -> ns:value).
             String valueType = attDescriptor.getSchemaType();
             if ((valueType != null) && (valueType.equals(QNAME_NAME)))
-                    value = resolveQName(value, attDescriptor);
+                value = resolveQName(value, attDescriptor);
 
             atts.addAttribute(namespace, localName, qName, CDATA, value.toString());
         }
     } //-- processAttribute
 
 
-    private Object processXSListType(final Object value, XMLFieldDescriptor descriptor) 
-    throws MarshalException {
+    private Object processXSListType(final Object value, XMLFieldDescriptor descriptor)
+            throws MarshalException {
         Object returnValue = null;
         Enumeration enumeration = null;
         if (value instanceof Enumeration) {
@@ -2681,12 +2680,12 @@ public class Marshaller extends MarshalFramework {
                 if (objType.isArray() && (objType.getComponentType() == Byte.TYPE)) {
                     collectionValue = encodeBinaryData(collectionValue, descriptor.getComponentType());
                 }
-                
+
                 sb.append(collectionValue.toString());
             }
             returnValue = sb;
         }
-        
+
         return returnValue;
     }
 
@@ -2698,7 +2697,7 @@ public class Marshaller extends MarshalFramework {
      * @return Encoded binary data in {@link String} form.
      */
     private Object encodeBinaryData(final Object valueToEncode,
-            final String componentType) {
+                                    final String componentType) {
         String encodedValue;
         if (HexDecoder.DATA_TYPE.equals(componentType)) {
             encodedValue = HexDecoder.encode((byte[]) valueToEncode);
@@ -2717,8 +2716,8 @@ public class Marshaller extends MarshalFramework {
      * @param atts the SAX attributes list to add attributes to
      */
     private void processContainerAttributes
-        (Object target, XMLClassDescriptor classDesc, AttributesImpl atts)
-        throws MarshalException
+    (Object target, XMLClassDescriptor classDesc, AttributesImpl atts)
+            throws MarshalException
     {
         if (classDesc instanceof XMLClassDescriptorImpl) {
             if (!((XMLClassDescriptorImpl)classDesc).hasContainerFields())
@@ -2742,18 +2741,18 @@ public class Marshaller extends MarshalFramework {
      * @throws MarshalException If there's a problem marshalling the attribute(s).
      */
     private void processContainerAttributes
-        (final Object target, final XMLFieldDescriptor containerFieldDesc, 
-                final AttributesImpl atts)
-        throws MarshalException {
+    (final Object target, final XMLFieldDescriptor containerFieldDesc,
+     final AttributesImpl atts)
+            throws MarshalException {
         if (target.getClass().isArray()) {
-             int length = Array.getLength(target);
-             for (int j = 0; j < length; j++) {
-                  Object item = Array.get(target, j);
-                  if (item != null) {
+            int length = Array.getLength(target);
+            for (int j = 0; j < length; j++) {
+                Object item = Array.get(target, j);
+                if (item != null) {
                     processContainerAttributes(item, containerFieldDesc, atts);
                 }
-             }
-             return;
+            }
+            return;
         } else if (target instanceof Enumeration) {
             Enumeration enumeration = (Enumeration) target;
             while (enumeration.hasMoreElements()) {
@@ -2772,7 +2771,7 @@ public class Marshaller extends MarshalFramework {
         }
 
         XMLClassDescriptor containerClassDesc
-            = (XMLClassDescriptor) containerFieldDesc.getClassDescriptor();
+                = (XMLClassDescriptor) containerFieldDesc.getClassDescriptor();
 
         if (containerClassDesc == null) {
             containerClassDesc = getClassDescriptor(containerFieldDesc.getFieldType());
@@ -2787,7 +2786,7 @@ public class Marshaller extends MarshalFramework {
             if (attrDescriptors[idx] == null) {
                 continue;
             }
-            if (attrDescriptors[idx].getLocationPath() == null 
+            if (attrDescriptors[idx].getLocationPath() == null
                     || attrDescriptors[idx].getLocationPath().length() == 0) {
                 processAttribute(containerObject, attrDescriptors[idx], atts);
             }
@@ -2805,7 +2804,7 @@ public class Marshaller extends MarshalFramework {
         if ( (value == null) || !(value instanceof String))
             return value;
         if (!(fieldDesc instanceof XMLFieldDescriptorImpl))
-           return value;
+            return value;
 
         String result = (String)value;
 
@@ -2850,7 +2849,7 @@ public class Marshaller extends MarshalFramework {
      * @param name Qualified name of the CASTOR XML-specific property.
      * @return The current value of the given property.
      * @since 1.1.2
-    */
+     */
     public String getProperty(final String name) {
         return getInternalContext().getStringProperty(name);
     }
@@ -2865,7 +2864,7 @@ public class Marshaller extends MarshalFramework {
         getInternalContext().setProperty(name, value);
         deriveProperties();
     }
-    
+
     /**
      * Inner-class used for handling wrapper elements
      * and locations.
